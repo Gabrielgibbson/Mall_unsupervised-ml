@@ -1,0 +1,7 @@
+fastapi
+pydantic
+scikit-learn
+seaborn
+uvicorn
+pandas 
+numpy
