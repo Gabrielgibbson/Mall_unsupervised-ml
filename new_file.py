@@ -4,6 +4,7 @@ import seaborn as sns
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 import joblib
+from sklearn.metrics import silhouette_score
 import matplotlib.pyplot as plt
 
 df = pd.read_csv("Mall_Customers.csv")
@@ -39,10 +40,10 @@ clusterlabel = kmeans.fit_predict(X_scaler)
 df['cluster'] = clusterlabel
 plt.figure(figsize=(10, 6))
 colors = ['red', 'blue', 'green','orange', 'purple']
-labels = ["Careful(High income, Low spend)",
-          "Standard(Average income, average spend)",
+labels = ["Standard(Average income, average spend)",
           "Target(High income, high spend)",
           "Reckless(Low income, high spend)",
+          "Careful(High income, Low spend)",
           "Sensible(Low income, Low spend)"]
 
 for i in range(5):
@@ -77,4 +78,9 @@ plt.savefig("cluster.png")
 plt.show()
 joblib.dump(kmeans, "kmeans_model.pkl")
 joblib.dump(scalar, "mallscaler.pkl")
+
+
+accuracy = silhouette_score(X_scaler, clusterlabel)
+print(accuracy)
+
 print("model saved successfully")
